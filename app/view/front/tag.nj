@@ -1,0 +1,15 @@
+{% include "./header.html" %}
+<section id="main" class="container tags">
+        <h1 class="title">标签：{{tag_name}}</h1>
+        <section class="block">
+          {% for item in posts %}
+          <article>
+            <h2>
+              <time datetime="{{item.addtime}}">{{item.addtime}}</time>
+              <a href="{{site_url}}/post/{{item.slug}}" title="{{item.title}}">{{item.title}}</a>
+            </h2>
+          </article>
+          {% endfor %}
+        </section>
+      </section>
+      {% include "./footer.html" %}

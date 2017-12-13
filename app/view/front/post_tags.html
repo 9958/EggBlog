@@ -1,0 +1,18 @@
+<div class="block">
+        <div class="widget about">
+          <strong class="wt">文章标签</strong>
+          <div class="wc">
+             <div class="tags">
+                {% if post.tags %}
+            <p>
+                {% for item in post.tags %}
+              <a href="{{site_url}}/tag/{{ item }}" title="{{ item }}">{{ item }}</a>
+              {% if loop.last %}{%else%},{% endif %}
+              {% endfor %}
+            </p>
+            {% endif %}
+          </div>
+            <div class="sep10"></div>
+          </div>
+        </div>
+      </div>

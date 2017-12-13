@@ -1,0 +1,53 @@
+{% include "./header.html" %}
+<div id="main" class="container page">
+        <h1 class="title">文章存档</h1>
+        <article class="post block posts">
+          <div class="entry archives">
+            {% for year in archives %}
+            <h2>{{year.year}}</h2>
+            <ul>
+                {% for item in year.archives %}
+              <li>
+                <time datetime="{{item.addtime}}">{{item.addtime}}</time>
+                <a href="{{site_url}}/post/{{item.slug}}" title="{{item.title}}">{{item.title}}</a>
+                <span class="clicknum">{{item.clicknum}}次浏览</span>
+              </li>
+              {% endfor %}
+            </ul>
+            {% endfor %}
+          </div>
+        </article>
+        <div id="navigation">
+          <table width='100%'>
+            <tbody>
+            <tr>
+              <td width='120' align='left'>
+                {% if crtP>1 %}
+                <div class="alignleft">
+                  <a href="{{site_url}}/archives/{{(crtP - 1)}}">上一页</a>
+                </div>
+                {% endif %}
+              </td>
+              <td width='auto' align='center'>
+                <strong class="fade">
+                  {{crtP}}/{{maxP}}
+                </strong>
+              </td>
+              <td width='120' align='right'>
+                {% if nextP>crtP %}
+                <div class="alignright">
+                  <a href="{{site_url}}/archives/{{nextP}}">下一页</a>
+                </div>
+                {% endif %}
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="sidebar" style="margin-top: 43px;">
+                {% include "./right.html" ignore missing %}
+                {% include "./search.html" ignore missing %}
+                {% include "./ad.html" ignore missing %}
+        </div>
+      </div>
+      {% include "./footer.html" %}

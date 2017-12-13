@@ -1,0 +1,13 @@
+<div class="block">
+        <div class="widget about">
+          <strong class="wt">最新文章</strong>
+          <div class="wc">
+              <ul>
+                    {% for item in newposts %}
+                  <li><a href="{{site_url}}/post/{{item.slug}}" title="{{item.title}}">{{item.title}}</a></li>
+                  {% endfor %}
+              </ul>
+            <div class="sep10"></div>
+          </div>
+        </div>
+      </div>
