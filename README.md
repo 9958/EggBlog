@@ -1,6 +1,6 @@
-# myblog
+# Eggblog
 
-myblog
+Eggblog
 
 ## QuickStart
 
