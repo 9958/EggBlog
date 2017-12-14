@@ -3,8 +3,50 @@
 const Controller = require('egg').Controller;
 const _ = require('lodash');
 const marked = require('marked');
+const utility = require('utility');
 
 class AdminController extends Controller {
+
+  async login() {
+    let { ctx } = this
+    const data = { title: '登陆' };
+    ctx.body = await ctx.renderView('admin/login.nj', data);
+  }
+
+  async logout() {
+    let { ctx,app } = this
+    let settings = app.config.settings
+    ctx.session = null
+    ctx.cookies.set(settings.auth_cookie_name, null);
+    ctx.redirect('/');
+  }
+
+  async doLogin() {
+    let { ctx,app } = this
+    let settings = app.config.settings
+    let name = ctx.request.body.name;
+    let pass = ctx.request.body.pass;
+    if(name == '' || pass == ''){
+        ctx.body = await ctx.renderString('账号或密码为空！');
+        return;
+    }
+    const admin = await app.mysql.get('admins', { name: name });
+    if(admin) {
+      pass = utility.md5(pass);
+      if(admin.password !=pass){
+        //to be safe,show username or password error
+        ctx.body = await ctx.renderString('账号或密码错误！');
+        return;
+      }
+      //store session cookie
+      let auth_token = ctx.helper.encrypt(admin.name + '\t' + admin.password, settings.session_secret);
+      ctx.cookies.set(settings.auth_cookie_name, auth_token, {path: '/',maxAge: 1000*60*60*24*7});
+      ctx.redirect('/admin');
+    }else{
+      ctx.redirect('/admin/login')
+    }
+  }
+
   async index() {
     let { ctx } = this
     const data = { title: '管理后台' };

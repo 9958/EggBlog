@@ -10,7 +10,8 @@ module.exports = appInfo => {
     mapping: {
       '.nj': 'nunjucks',
     },
-    defaultExtension: '.nj'
+    defaultExtension: '.nj',
+    defaultViewEngine: 'nunjucks'
   }
 
   config.settings = {
@@ -18,7 +19,9 @@ module.exports = appInfo => {
     name:'博客',
     site_url:'http://localhost:7001',
     keywords:'',
-    description:''
+    description:'',
+    auth_cookie_name: 'ad_cookie',
+    session_secret:'ssss'
   };
 
   config.mysql = {
